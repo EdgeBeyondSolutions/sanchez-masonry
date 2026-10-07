@@ -15,13 +15,31 @@ document.addEventListener('DOMContentLoaded', function () {
   var menuToggle = document.querySelector('.menu-toggle');
   var mobileNav = document.querySelector('.mobile-nav');
   if (menuToggle && mobileNav) {
-    menuToggle.addEventListener('click', function () {
-      mobileNav.classList.toggle('open');
+    function setNavOpen(open) {
+      mobileNav.classList.toggle('open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setNavOpen(!mobileNav.classList.contains('open'));
     });
     mobileNav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        mobileNav.classList.remove('open');
+        setNavOpen(false);
       });
+    });
+    document.addEventListener('click', function (e) {
+      if (mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && e.target !== menuToggle) {
+        setNavOpen(false);
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 780) setNavOpen(false);
     });
   }
 
