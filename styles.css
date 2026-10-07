@@ -3,3 +3,4 @@
 .reveal.in-view{opacity:1;transform:translateY(0)}
 .project-card.is-hidden{display:none}
 @media(max-width:780px){.mobile-nav.open{display:flex}}
+.area-list-simple span:last-child{grid-column:1/-1}
