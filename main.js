@@ -95,6 +95,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* Service card flip */
+  document.querySelectorAll('.service-card').forEach(function (card) {
+    var exploreBtn = card.querySelector('.service-explore');
+    var backBtn = card.querySelector('.service-back-btn');
+    function flip(open) {
+      card.classList.toggle('is-flipped', open);
+    }
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', function () {
+        flip(true);
+      });
+      exploreBtn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flip(true);
+        }
+      });
+    }
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        flip(false);
+      });
+    }
+  });
+
   /* Project filter */
   var filterButtons = document.querySelectorAll('.filters button');
   var projectCards = document.querySelectorAll('.project-card');
