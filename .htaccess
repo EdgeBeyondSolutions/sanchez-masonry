@@ -1,0 +1,42 @@
+# Sanchez Masonry — Apache config for Hostinger.
+# GitHub Pages ignores this file entirely; it only takes effect once the
+# site is served from Hostinger (or any other Apache host).
+
+# Cache static assets aggressively — images, fonts, and icons rarely change
+# and are always referenced with a cache-busting ?v= query string when they do.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|png|jpe?g|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Compress text-based assets in transit.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Block direct browsing of contact.php's error output being cached by proxies.
+<IfModule mod_headers.c>
+  <Files "contact.php">
+    Header set Cache-Control "no-store"
+  </Files>
+</IfModule>
