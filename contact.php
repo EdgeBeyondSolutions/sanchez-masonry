@@ -48,8 +48,7 @@ $email    = clean_header_value($email);
 $service  = clean_header_value($service);
 $location = clean_header_value($location);
 
-// TEMPORARY for testing — revert to chemitovajise123@gmail.com before real launch.
-$to = 'contact@edgebeyond.solutions';
+$to = 'chemitovajise123@gmail.com';
 $subject = mb_encode_mimeheader('New estimate request - ' . $service, 'UTF-8');
 
 $body = "New free estimate request from masonrysanchez.com\n\n"
