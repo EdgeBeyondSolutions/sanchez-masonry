@@ -173,11 +173,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape') closeLightbox();
   });
 
-  /* Estimate form — client-side validation + success state.
-     Posts via fetch when hosted on Netlify (data-netlify form); otherwise
-     just confirms locally. Replace with your own backend/endpoint as needed. */
+  /* Estimate form — client-side validation, posts to contact.php on the server,
+     and only shows success once the server confirms the email actually sent. */
   var form = document.querySelector('.estimate-form');
   if (form) {
+    var errorEl = form.querySelector('.form-error');
+
+    function showFormError(msg) {
+      if (!errorEl) return;
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -189,6 +196,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
+      if (errorEl) errorEl.hidden = true;
+
       var submitBtn = form.querySelector('.form-button');
       var originalLabel = submitBtn.innerHTML;
       submitBtn.disabled = true;
@@ -197,16 +206,27 @@ document.addEventListener('DOMContentLoaded', function () {
       var formData = new FormData(form);
       var body = new URLSearchParams(formData).toString();
 
-      fetch('/', {
+      fetch(form.getAttribute('action'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body
       })
-        .catch(function () {
-          /* Not hosted on Netlify (e.g. local preview) — show success anyway */
+        .then(function (res) {
+          return res.json().catch(function () { return { success: false }; });
         })
-        .finally(function () {
-          showFormSuccess(form);
+        .then(function (data) {
+          if (data.success) {
+            showFormSuccess(form);
+          } else {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalLabel;
+            showFormError(data.message || 'Something went wrong. Please call us directly at (210) 328-7738.');
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+          showFormError('Something went wrong. Please call us directly at (210) 328-7738.');
         });
     });
   }
