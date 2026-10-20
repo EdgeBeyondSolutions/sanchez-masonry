@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sanchezmasonry.com/sitemap.xml
+Sitemap: https://masonrysanchez.com/sitemap.xml

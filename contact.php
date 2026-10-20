@@ -54,7 +54,7 @@ $location = clean_header_value($location);
 $to = 'chemitovajise123@gmail.com';
 $subject = mb_encode_mimeheader('New estimate request - ' . $service, 'UTF-8');
 
-$body = "New free estimate request from sanchezmasonry.com\n\n"
+$body = "New free estimate request from masonrysanchez.com\n\n"
       . "Name: {$name}\n"
       . "Phone: {$phone}\n"
       . "Email: {$email}\n"
