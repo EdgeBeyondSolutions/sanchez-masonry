@@ -216,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(function (data) {
           if (data.success) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalLabel;
             showFormSuccess(form);
           } else {
             submitBtn.disabled = false;
