@@ -6,9 +6,6 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Only allow requests from this same site's pages, not arbitrary callers.
-header('Access-Control-Allow-Origin: https://masonrysanchez.com');
-
 function respond($ok, $message) {
     http_response_code($ok ? 200 : 400);
     echo json_encode(['success' => $ok, 'message' => $message]);
