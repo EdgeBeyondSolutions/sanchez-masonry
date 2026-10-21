@@ -23,4 +23,4 @@ body.legal-page .site-header{color:var(--ink);border-color:var(--line);-webkit-b
 .copyright a{color:inherit;text-decoration:underline;text-underline-offset:2px;opacity:.9}
 .copyright a:hover{opacity:1}
 @media(max-width:780px){.legal-hero{padding:150px 6vw 28px}.legal-body{padding:0 6vw 90px}}
-.story h2 em,.services h2 em,.portfolio h2 em,.reviews h2 em,.process h2 em,.faq h2 em{color:#6f5a3c}
+.story h2 em,.services h2 em,.portfolio h2 em,.reviews h2 em,.process h2 em,.faq h2 em{color:#6f5a3c}#story,#services,#work,#reviews,#contact,#estimate-form{scroll-margin-top:100px}
