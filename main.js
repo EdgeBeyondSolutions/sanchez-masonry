@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<p>We received your request and will reach out shortly to schedule your complimentary on-site estimate.</p>' +
       '<button type="button">Send another request</button>';
     formEl.replaceWith(success);
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
     success.querySelector('button').addEventListener('click', function () {
       success.replaceWith(formEl);
       formEl.reset();
