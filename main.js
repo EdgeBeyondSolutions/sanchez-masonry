@@ -218,6 +218,12 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data.success) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalLabel;
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', {
+                form_name: 'estimate-request',
+                service: formData.get('service') || ''
+              });
+            }
             showFormSuccess(form);
           } else {
             submitBtn.disabled = false;
